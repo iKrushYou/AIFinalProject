@@ -636,6 +636,8 @@ public final class NewJFrame extends javax.swing.JFrame {
 
     // easy radio button
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        gameBoard.timeCutoff = 10000; // search algorithm time allowed (ms)
+        jTextField1.setText(gameBoard.timeCutoff + "");
         gameBoard.depthCutoff = 1; // search algorithm depth
         jTextField2.setText(gameBoard.depthCutoff + "");
         jRadioButton2.setSelected(false);
@@ -645,6 +647,8 @@ public final class NewJFrame extends javax.swing.JFrame {
 
     // medium radio button
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        gameBoard.timeCutoff = 10000; // search algorithm time allowed (ms)
+        jTextField1.setText(gameBoard.timeCutoff + "");
         gameBoard.depthCutoff = 2; // search algorithm depth
         jTextField2.setText(gameBoard.depthCutoff + "");
         jRadioButton1.setSelected(false);
@@ -654,6 +658,8 @@ public final class NewJFrame extends javax.swing.JFrame {
 
     // hard radio button
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        gameBoard.timeCutoff = 10000; // search algorithm time allowed (ms)
+        jTextField1.setText(gameBoard.timeCutoff + "");
         gameBoard.depthCutoff = 0; // search algorithm depth
         jTextField2.setText(gameBoard.depthCutoff + "");
         jRadioButton1.setSelected(false);
@@ -692,8 +698,8 @@ public final class NewJFrame extends javax.swing.JFrame {
             // create a new gameBoard with human player "Player 1" computer player "Computer" and human player going first
             gameBoard = new GameBoard("Player 1", "Computer", GameBoard.USER);
 
-            gameBoard.timeCutoff = Integer.parseInt(jTextField1.getText());
-            gameBoard.depthCutoff = Integer.parseInt(jTextField2.getText());
+            gameBoard.timeCutoff = Integer.parseInt(jTextField1.getText()); // set the time cutoff
+            gameBoard.depthCutoff = Integer.parseInt(jTextField2.getText()); // set the depth cutoff
         // if button is to let player go first
         } else {
             // set button back to reset
@@ -701,8 +707,11 @@ public final class NewJFrame extends javax.swing.JFrame {
             
             // create a new gameBoard with human player "Player 1" computer player "Computer" and computer player going first
             gameBoard = new GameBoard("Player 1", "Computer", GameBoard.COMPUTER);
-            // toggle the computer move
-            gameBoard.computerMove();
+
+            gameBoard.timeCutoff = Integer.parseInt(jTextField1.getText()); // set the time cutoff
+            gameBoard.depthCutoff = Integer.parseInt(jTextField2.getText()); // set the depth cutoff
+            
+            gameBoard.computerMove(); // toggle the computer move
         }
         
         // update the UI
