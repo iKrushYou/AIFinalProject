@@ -8,10 +8,11 @@ Cutoff Depth - the maximum depth the search tree can go before determining a mov
 Easy:
   - time cutoff: 10000 ms (will never reach at this depth)
   - depth cutoff: 1
-Medium:
 
+Medium:
   - time cutoff: 10000 ms (will never reach at this depth)
   - depth cutoff: 2
+
 Hard:
   - time cutoff: 10000 ms
   - depth cutoff: 0 (there is no cutoff)
