@@ -640,6 +640,7 @@ public final class NewJFrame extends javax.swing.JFrame {
         jTextField1.setText(gameBoard.timeCutoff + "");
         gameBoard.depthCutoff = 1; // search algorithm depth
         jTextField2.setText(gameBoard.depthCutoff + "");
+        gameBoard.difficulty = 1;
         jRadioButton2.setSelected(false);
         jRadioButton3.setSelected(false);
         jRadioButton4.setSelected(false);
@@ -651,6 +652,7 @@ public final class NewJFrame extends javax.swing.JFrame {
         jTextField1.setText(gameBoard.timeCutoff + "");
         gameBoard.depthCutoff = 2; // search algorithm depth
         jTextField2.setText(gameBoard.depthCutoff + "");
+        gameBoard.difficulty = 2;
         jRadioButton1.setSelected(false);
         jRadioButton3.setSelected(false);
         jRadioButton4.setSelected(false);
@@ -662,6 +664,7 @@ public final class NewJFrame extends javax.swing.JFrame {
         jTextField1.setText(gameBoard.timeCutoff + "");
         gameBoard.depthCutoff = 0; // search algorithm depth
         jTextField2.setText(gameBoard.depthCutoff + "");
+        gameBoard.difficulty = 3;
         jRadioButton1.setSelected(false);
         jRadioButton2.setSelected(false);
         jRadioButton4.setSelected(false);
@@ -695,11 +698,13 @@ public final class NewJFrame extends javax.swing.JFrame {
         if (jButton1.getText().equals("Reset Game")) {
             jButton1.setText("Let Computer Move First");
             
+            int difficulty = gameBoard.difficulty;
             // create a new gameBoard with human player "Player 1" computer player "Computer" and human player going first
             gameBoard = new GameBoard("Player 1", "Computer", GameBoard.USER);
 
             gameBoard.timeCutoff = Integer.parseInt(jTextField1.getText()); // set the time cutoff
             gameBoard.depthCutoff = Integer.parseInt(jTextField2.getText()); // set the depth cutoff
+            gameBoard.difficulty = difficulty;
         // if button is to let player go first
         } else {
             // set button back to reset
@@ -722,6 +727,7 @@ public final class NewJFrame extends javax.swing.JFrame {
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
         gameBoard.depthCutoff = 0;
         jTextField2.setText("0");
+        gameBoard.difficulty = 0;
         jRadioButton1.setSelected(false);
         jRadioButton2.setSelected(false);
         jRadioButton3.setSelected(false);
@@ -802,11 +808,26 @@ public final class NewJFrame extends javax.swing.JFrame {
     
     // handler for all game buttons
     public void buttonPressed(int c, int r) {
-        gameBoard.buttonPressed(c, r);
+        new Thread(() -> {
+            gameBoard.buttonPressed(c, r);
+            setButtonsEnabled(false);
+            updateDisplay();
+            gameBoard.buttonPressed(c, r);
+            setButtonsEnabled(true);
+            updateDisplay();
         
-        jButton1.setText("Reset Game"); // set the button back to reset once the player has made a move
-        
-        updateDisplay();
+            jButton1.setText("Reset Game"); // set the button back to reset once the player has made a move
+
+        }).start();
+    }
+    
+    public void setButtonsEnabled(Boolean enabled) {
+        for (int r = 0; r < GameBoard.HEIGHT; r++) {
+            for (int c = 0; c < GameBoard.WIDTH; c++) {
+                JButton button = buttons[c][r];
+                button.setEnabled(enabled);
+            }
+        }
     }
 
 
