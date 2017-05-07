@@ -145,7 +145,10 @@ public class GameBoard {
                 move = getBestMove(boardState);
                 break;
             case 2:
-                move = getBestMove(boardState);
+                Random random = new Random();
+                int chance = random.nextInt(100);
+                if (chance > 70) move = getBestMove(boardState);
+                else move = getRandomMove(boardState);
                 break;
             case 1: 
                 move = getRandomMove(boardState);
@@ -207,8 +210,6 @@ public class GameBoard {
     }
     
     private int utilityValue(BoardState state, int depth) {
-        if (difficulty == 2) return evaluateBoard(state);
-        
         if (state.checkWin(COMPUTER)) {
             return 1000 - depth; // adjust the value with the depth
         }

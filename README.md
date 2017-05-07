@@ -6,16 +6,15 @@ Cutoff Time - the max amount of compute time allowed to calculate a move
 Cutoff Depth - the maximum depth the search tree can go before determining a move
 
 Easy:
-  - time cutoff: 10000 ms (will never reach at this depth)
-  - depth cutoff: 1
+  - Computer makes a random move every turn
 
 Medium:
-  - time cutoff: 10000 ms (will never reach at this depth)
-  - depth cutoff: 2
+  - The computer plays with hard difficulty settings, but there is a 30% chance that it plays with a random move instead.
 
 Hard:
   - time cutoff: 10000 ms
   - depth cutoff: 0 (there is no cutoff)
+  - Uses the minimax algorithm with A-B pruning. At cutoff, the evaluation function is 6 * X3 + 3 * X2 + X1 - (6 * O3 + 3 * O2 + O1) where X3 is the number of rows / columns / diags with 3 Xs and 1 blank space, O2 is the number of rows / columns / diags with 2 Os and 2 blank spaces…etc.
 
 If you would like the computer to go first, you may do so at the beginning of any new game.
 
